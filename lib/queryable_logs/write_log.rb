@@ -10,7 +10,7 @@ module QueryableLogs
 
     def write_to_trail_log
       # vid, mid, ip, vrb, url, ctl, act, fmt, res, p (must be last)
-      TrailLog.logger.info("mid:%{member_id} ip:%{ip_address} vrb:%{http_verb} url:%{url} ctl:%{controller} act:%{action} fmt:%{format} res:%{response_code} p:%{params_as_json}" % {
+      Trail.logger.info("mid:%{member_id} ip:%{ip_address} vrb:%{http_verb} url:%{url} ctl:%{controller} act:%{action} fmt:%{format} res:%{response_code} p:%{params_as_json}" % {
                       member_id: current_user.try(:id) || '',
                       ip_address: request.remote_ip,
                       http_verb: request.request_method,
