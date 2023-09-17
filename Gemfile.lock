@@ -2,7 +2,6 @@ PATH
   remote: .
   specs:
     queryable_logs (0.1.0)
-      actionpack (>= 4)
       rails (>= 4)
 
 GEM

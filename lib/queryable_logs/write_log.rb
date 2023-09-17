@@ -1,5 +1,3 @@
-require "action_pack"
-
 module QueryableLogs
   module WriteLog
     extend ActiveSupport::Concern
