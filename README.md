@@ -1,8 +1,6 @@
 # QueryableLogs
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/queryable_logs`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Query your logs using good old ActiveRecord.
 
 ## Installation
 
@@ -20,9 +18,12 @@ Or install it yourself as:
 
     $ gem install queryable_logs
 
+Run `rails g queryable_logs`. This will generate a migration file and an initializer file. queryable_logs also logs the current user id. Let the gem know which method you are using to get the current user. Default is set to `current_user`.
+
 ## Usage
 
-TODO: Write usage instructions here
+Use `QueryableLogs::TrailLog` like any ActiveRecord object.
+eg: query how many requests you got for the `posts` controller `index` action. `QueryableLogs::TrailLog.where(controller: 'posts', action: 'index').count`
 
 ## Development
 
