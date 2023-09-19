@@ -9,7 +9,7 @@ module QueryableLogs
     def write_to_trail_log
       # vid, mid, ip, vrb, url, ctl, act, fmt, res, p (must be last)
       Trail.logger.info("mid:%{member_id} ip:%{ip_address} vrb:%{http_verb} url:%{url} ctl:%{controller} act:%{action} fmt:%{format} res:%{response_code} p:%{params_as_json}" % {
-                      member_id: current_user.try(:id) || '',
+                      member_id: send(Trail.current_user_method).try(:id) || '',
                       ip_address: request.remote_ip,
                       http_verb: request.request_method,
                       url: Nokogiri::HTML(request.fullpath).text.strip,

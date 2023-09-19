@@ -1,6 +1,6 @@
 module QueryableLogs
   class TrailLog < ActiveRecord::Base
-    serialize :params_hash, Hash
+    serialize :params_hash, JSON
 
     def self.parse_log_and_save_trails(log_file_name="trail.log")
       trails_recorded = []
