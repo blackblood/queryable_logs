@@ -13,6 +13,10 @@ class QueryableLogsGenerator < Rails::Generators::Base
     copy_file "initializer.rb", "config/initializers/trail_log.rb"
   end
 
+  def copy_task_file
+    copy_file "task.rb", "lib/tasks/queryable_logs_parse_save.rb"
+  end
+
   def rails5_and_up?
     Rails::VERSION::MAJOR >= 5
   end

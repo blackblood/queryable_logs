@@ -11,7 +11,7 @@ Gem::Specification.new do |spec|
 
   spec.summary       = "Make logs queryable, just like you would query any other activerecord table"
   # spec.description   = ""
-  spec.homepage      = "https://github.com/blackblood/deforest"
+  spec.homepage      = "https://github.com/blackblood/queryable_logs"
   spec.license       = "MIT"
 
   # Prevent pushing this gem to RubyGems.org. To allow pushes either set the 'allowed_push_host'
@@ -20,8 +20,8 @@ Gem::Specification.new do |spec|
     spec.metadata["allowed_push_host"] = "TODO: Set to 'http://mygemserver.com'"
 
     spec.metadata["homepage_uri"] = spec.homepage
-    spec.metadata["source_code_uri"] = "https://github.com/blackblood/deforest"
-    spec.metadata["changelog_uri"] = "https://github.com/blackblood/deforest/changelog"
+    spec.metadata["source_code_uri"] = "https://github.com/blackblood/queryable_logs"
+    spec.metadata["changelog_uri"] = "https://github.com/blackblood/queryable_logs/changelog"
   else
     raise "RubyGems 2.0 or newer is required to protect against " \
       "public gem pushes."

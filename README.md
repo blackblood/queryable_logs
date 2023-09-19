@@ -18,7 +18,13 @@ Or install it yourself as:
 
     $ gem install queryable_logs
 
-Run `rails g queryable_logs`. This will generate a migration file and an initializer file. queryable_logs also logs the current user id. Let the gem know which method you are using to get the current user. Default is set to `current_user`.
+Run
+    `rails g queryable_logs`.
+
+This will generate a migration file and an initializer file. queryable_logs also logs the current user id. Let the gem know which method you are using to get the current user. Default is set to `current_user`.
+
+Enter the following task to your crontab
+    `rake parse:logs_to_db`
 
 ## Usage
 
