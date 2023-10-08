@@ -14,7 +14,7 @@ class QueryableLogsGenerator < Rails::Generators::Base
   end
 
   def copy_task_file
-    copy_file "task.rb", "lib/tasks/queryable_logs_parse_save.rb"
+    copy_file "task.rb", "lib/tasks/queryable_logs_parse_save.rake"
   end
 
   def rails5_and_up?
