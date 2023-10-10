@@ -12,7 +12,6 @@ module QueryableLogs
         File.open(log_file_path, File::RDONLY) do |f|
           f.flock(File::LOCK_SH)
           bytes_to_read = File.size(log_file_path)
-          puts "bytes_to_read = #{bytes_to_read} >>>>>>>>>>>>>"
           f.flock(File::LOCK_UN)
         end
       rescue
@@ -29,8 +28,6 @@ module QueryableLogs
         next if line.match(/\A# Logfile created on/) != nil
         if m = line.match(/^I, \[(.+?)\]  INFO -- : (.*)$/)
           request_time_and_pid, log_line = m[1..2]
-          next if TrailLog.where(sig: request_time_and_pid).count.nonzero? # ignore line if its already saved in trails table
-
           log_line = log_line.sub(/ p:(.*)$/, '')
           log_params = {"p" => $1}
           log_params = log_params.merge(Hash[log_line.scan(/(\w+):(\S+)/)])
