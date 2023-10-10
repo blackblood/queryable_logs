@@ -25,17 +25,13 @@ This will generate a migration file and an initializer file. queryable_logs also
 
 Enter the following task to your crontab
     `rake parse:logs_to_db`
+eg:
+    `* * * * * cd /Users/akshaytakkar/sample_rails_app && /Users/akshaytakkar/.rvm/wrappers/ruby-3.1.0/rake db:parse_log_and_save_trails >> /Users/akshaytakkar/sample_rails_app/log/worker.log 2>&1`
 
 ## Usage
 
 Use `QueryableLogs::TrailLog` like any ActiveRecord object.
 eg: query how many requests you got for the `posts` controller `index` action. `QueryableLogs::TrailLog.where(controller: 'posts', action: 'index').count`
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
 
 ## License
 
