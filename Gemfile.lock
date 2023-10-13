@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    queryable_logs (0.1.0)
+    queryable_logs (0.1.1)
       rails (>= 4)
 
 GEM
