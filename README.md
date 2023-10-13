@@ -21,7 +21,48 @@ Or install it yourself as:
 Run
     `rails g queryable_logs`.
 
-This will generate a migration file and an initializer file. queryable_logs also logs the current user id. Let the gem know which method you are using to get the current user. Default is set to `current_user`.
+This will generate a migration file.
+```
+class CreateTrailLogs < ActiveRecord::Migration
+  def change
+    create_table :trail_logs do |t|
+      t.integer :user_id
+      t.string :ip_address
+      t.string :controller
+      t.string :action
+      t.string :format
+      t.string :http_verb
+      t.text :params_hash
+      t.datetime :logged_at
+      t.string :response_code
+      t.string :request_url
+      t.string :sig
+
+      t.timestamps null: false
+    end
+  end
+end
+```
+and an initializer file.
+```
+class Trail
+  cattr_accessor :current_user_method, :logger, :saving_logs
+  LogFile = Rails.root.join('log', 'trail.log')
+  delegate :debug, :info, :warn, :error, :fatal, :to => :logger
+end
+
+Trail.logger = Logger.new(Trail::LogFile)
+Trail.logger.level = 'info' # could be debug, info, warn, error or fatal
+Trail.current_user_method = :current_user
+```
+queryable_logs also logs the current user id. Let the gem know which method you are using to get the current user. Default is set to `current_user`.
+
+Finally, include the `QueryableLogs::WriteLog` in the base controller, typically the `ApplicationController`.
+```
+class ApplicationController < ActionController::Base
+  include QueryableLogs::WriteLog
+end
+```
 
 Enter the following task to your crontab
     `rake parse:logs_to_db`
