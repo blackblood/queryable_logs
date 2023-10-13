@@ -22,7 +22,7 @@ Run
     `rails g queryable_logs`.
 
 This will generate a migration file.
-```
+```ruby
 class CreateTrailLogs < ActiveRecord::Migration
   def change
     create_table :trail_logs do |t|
@@ -44,7 +44,7 @@ class CreateTrailLogs < ActiveRecord::Migration
 end
 ```
 and an initializer file.
-```
+```ruby
 class Trail
   cattr_accessor :current_user_method, :logger, :saving_logs
   LogFile = Rails.root.join('log', 'trail.log')
@@ -58,7 +58,7 @@ Trail.current_user_method = :current_user
 queryable_logs also logs the current user id. Let the gem know which method you are using to get the current user. Default is set to `current_user`.
 
 Finally, include the `QueryableLogs::WriteLog` in the base controller, typically the `ApplicationController`.
-```
+```ruby
 class ApplicationController < ActionController::Base
   include QueryableLogs::WriteLog
 end
