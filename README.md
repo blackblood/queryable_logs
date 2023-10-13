@@ -64,10 +64,11 @@ class ApplicationController < ActionController::Base
 end
 ```
 
-Enter the following task to your crontab
-    `rake parse:logs_to_db`
-eg:
-    `* * * * * cd /Users/akshaytakkar/sample_rails_app && /Users/akshaytakkar/.rvm/wrappers/ruby-3.1.0/rake db:parse_log_and_save_trails >> /Users/akshaytakkar/sample_rails_app/log/worker.log 2>&1`
+Enter the following task to your crontab `rake parse:logs_to_db`
+
+eg: `0 * * * * cd /Users/akshaytakkar/sample_rails_app && /Users/akshaytakkar/.rvm/wrappers/ruby-3.1.0/rake db:parse_log_and_save_trails >> /Users/akshaytakkar/sample_rails_app/log/worker.log 2>&1`
+
+This will run the `rake parse:logs_to_db` rake task every hour and log any errors or output from the task to `worker.log` file.
 
 ## Usage
 
