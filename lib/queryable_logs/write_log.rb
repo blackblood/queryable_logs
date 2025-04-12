@@ -21,7 +21,6 @@ module QueryableLogs
       }
         
       Trail.logger.info(log_string)
-      end
     end
   end
 end
