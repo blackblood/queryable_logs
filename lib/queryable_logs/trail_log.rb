@@ -30,7 +30,6 @@ module QueryableLogs
                       logged_at: request_time)
         end
       end
-      QueryableLogs::ParsedTrailLogFile.create(file_name: log_file_name)
     end
   end
 end
