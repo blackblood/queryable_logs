@@ -28,11 +28,6 @@ class QueryableLogsGenerator < Rails::Generators::Base
   end
 
   def self.next_migration_number(dirname)
-    if ActiveRecord::Base.timestamped_migrations
-      current_time = Time.now.utc
-      current_time.strftime("%Y%m%d%H%M%S")
-    else
-      "%.3d" % (current_numeric_version(dirname) + 1)
-    end
+    Time.now.utc.strftime("%Y%m%d%H%M%S")
   end
 end

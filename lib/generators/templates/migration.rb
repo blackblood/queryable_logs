@@ -7,7 +7,7 @@ class CreateTrailLogs < ActiveRecord::Migration<%= migration_version %>
       t.string :action
       t.string :format
       t.string :http_verb
-      t.text :params_hash
+      t.json :params_hash
       t.datetime :logged_at
       t.string :response_code
       t.string :request_url

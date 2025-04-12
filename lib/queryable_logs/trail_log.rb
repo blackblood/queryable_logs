@@ -1,33 +1,14 @@
 module QueryableLogs
   class TrailLog < ActiveRecord::Base
-    serialize :params_hash, JSON
-
     def self.parse_log_and_save_trails(log_file_name="trail.log")
-      trails_recorded = []
-      lines = []
-      bytes_to_read = 0
       log_file_path = "#{Rails.root}/log/#{log_file_name}"
-      
-      begin
-        File.open(log_file_path, File::RDONLY) do |f|
-          f.flock(File::LOCK_SH)
-          bytes_to_read = File.size(log_file_path)
-          f.flock(File::LOCK_UN)
-        end
-      rescue
-        f.flock(File::LOCK_UN)
-        return
-      end
-
-      return if bytes_to_read == 0
-      
-      File.open(log_file_path) do |f|
-        lines = f.read(bytes_to_read).split("\n")
-      end
+      lines = []
+      File.open(log_file_path) { |f| f.each_line { |line| lines << line } }
       lines.each do |line|
         next if line.match(/\A# Logfile created on/) != nil
         if m = line.match(/^I, \[(.+?)\]  INFO -- : (.*)$/)
           request_time_and_pid, log_line = m[1..2]
+          next if TrailLog.where(sig: request_time_and_pid).count > 0
           log_line = log_line.sub(/ p:(.*)$/, '')
           log_params = {"p" => $1}
           log_params = log_params.merge(Hash[log_line.scan(/(\w+):(\S+)/)])
@@ -49,27 +30,7 @@ module QueryableLogs
                       logged_at: request_time)
         end
       end
-
-      if bytes_to_read > 0
-        log_file_ptr = nil
-        begin
-          File.open(log_file_path, "r+") do |f|
-            f.flock(File::LOCK_EX)
-            f.seek(bytes_to_read + 1)
-            fsize = File.size(log_file_path)
-            buffer = f.read(fsize - bytes_to_read)
-            f.seek(0)
-            f.write(buffer)
-            f.truncate(fsize - bytes_to_read)
-            f.flock(File::LOCK_UN)
-          end
-        rescue Exception => e
-          puts "msg = #{e.message}"
-          puts "backtrace = #{e.backtrace}"
-          log_file_ptr&.flock(File::LOCK_UN)
-          return
-        end
-      end
+      QueryableLogs::ParsedTrailLogFile.create(file_name: log_file_name)
     end
   end
 end
