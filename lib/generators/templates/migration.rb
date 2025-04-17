@@ -13,6 +13,9 @@ class CreateTrailLogs < ActiveRecord::Migration<%= migration_version %>
       t.string :request_url
       t.string :sig
 
+      t.index :sig, unique: true
+      t.index :controller
+      t.index :action
       t.timestamps null: false
     end
   end

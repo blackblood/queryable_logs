@@ -7,3 +7,4 @@ end
 Trail.logger = Logger.new(Trail::LogFile, 'daily', 7)
 Trail.logger.level = 'info' # could be debug, info, warn, error or fatal
 Trail.current_user_method = :current_user
+Trail.skip_controller_actions = [] # Should be a small list of controller#action items
